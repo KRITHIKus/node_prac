@@ -1,0 +1,84 @@
+import { use } from "react";
+import User from "../db/UserModel.js";
+
+
+
+
+export const createUser = async (req, res) => {
+  try {
+    const { name, password } = req.body;
+    if (!name || !password) {
+      return res.status(400).json({ msg: "name and password is required" });
+    }
+    const user = new User({  name, password });
+    await user.save()
+    return res.status(201).json(user);
+  } catch (err) {
+    res.status(500).json({ msg: err.message });
+  }
+};
+
+export const getusers = async (req, res) => {
+
+  try {
+      const { filter, value } = req.query;
+  let users;
+  if (filter && value) {
+    const query = {[filter]: new RegExp(value,"i")}
+     users=await User.find(query)
+  }else{
+    users= await User.find()
+  }
+
+  res.json(users);
+    
+  } catch (error) {
+    res.status(500).json({msg:error.message})
+  }
+
+};
+
+export const ById = async (req, res) => {
+  res.json(req.user);
+};
+
+export const updateUser = async (req, res) => {
+ try {
+   const { name, password,role,email } = req.body;
+
+  if (!name ||  !email) {
+    return res
+      .status(400)
+      .json({ msg: "Name and password ,role,email are required for full update" });
+  }
+  const updateUser= await User.findByIdAndUpdate(
+    req.params.id,
+    {name,password,role,email},
+    {new:true,runValidators:true}
+  )
+  if(!updateUser)return res.status(404).json({msg:"User not found"})
+    res.json(updateUser)
+ } catch (error) {
+   res.status(500).json({msg:error.message})
+ }
+};
+
+export const deleteUser = async (req, res) => {
+ try {
+  const Deleteuser= await User.findByIdAndDelete(req.params.id)
+  if(!Deleteuser)return res.status(404).json({msg:"User not found"})
+    res.json({ msg: "user deleted sucessfully",Deleteduser:Deleteuser });
+ } catch (error) {
+      res.status(400).json({ msg: err.message, });
+
+ }
+};
+
+export const read=async(req,res)=>{
+  try {
+    res.status(201).json({msg:req.mess})
+  } catch (error) {
+     res.status(500).json({msg:"internal server error inc",error})
+  }
+}
+

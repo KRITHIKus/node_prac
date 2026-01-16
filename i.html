@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+     // Parent constructor function
+function Person(name, age) {
+  this.name = name;
+  this.age = age;
+}
+
+// Adding a method to Person's prototype
+Person.prototype.greet = function() {
+  return `Hello, my name is ${this.name} and I am ${this.age} years old.`;
+};
+
+// Child constructor function
+function Student(name, age, school) {
+  // Call parent constructor to initialize name and age
+  Person.call(this, name, age);
+  this.school = school;
+}
+
+// Inherit from Person.prototype
+Student.prototype = Object.create(Person.prototype);
+
+// Set the constructor property back to Student
+Student.prototype.constructor = Student;
+
+// Add method specific to Student
+Student.prototype.study = function() {
+  return `${this.name} is studying at ${this.school}.`;
+};
+
+// Create instance of Student
+const student1 = new Student("Alice", 20, "Wonderland University");
+
+// Access methods - inherited and own
+console.log(student1.greet());  // Hello, my name is Alice and I am 20 years old.
+console.log(student1.study());  // Alice is studying at Wonderland University.
+console.log(student1    );  // Alice is studying at Wonderland University.
+
+    </script>
+</body>
+</html>
