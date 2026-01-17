@@ -23,7 +23,7 @@ const returnToUSer= ({_id:user._id,name:user.name,email:user.email,role:user.rol
 return res.status(201).json({msg:"user created sucessfully",userDetails:returnToUSer})
     }
     catch(err){
-return res.status(500).json({msg:`server error , error=> ${err}`})
+return res.status(500).json({msg:`server error , error=> ${err}`}) 
     }
 }
 

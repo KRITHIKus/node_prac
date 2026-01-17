@@ -82,3 +82,51 @@ export const read=async(req,res)=>{
   }
 }
 
+
+
+export const PrimeNUM=async(req,res)=>{
+  try {
+    const {number}=req.body;
+    const num =parseInt(number)
+function prime(n){
+  if(n===2)return true
+  if(n<=1)return false
+  if(n%2===0)return false
+
+  for(let i=3;i<=Math.sqrt(n);i+=2){
+    if(n%i===0){
+      return false;
+
+    }
+  }
+  return true;
+}
+
+function generate(n){
+  let res=[];
+  for(let i=2;i<=n;i++){
+    let isp=true;
+    for(let j =2;j<=Math.sqrt(i);j++){
+      if(i%j===0){
+        isp=false;
+        break;
+      }
+    }
+    if(isp){
+     res.push(i)
+    }
+  }
+  return res.join(" ")
+}
+
+
+return res.status(200).json({
+msg: prime(num)
+        ? `${num} is a prime number`
+        : `${num} is not a prime number`,
+      Primenumbers: `List of Prime Numbers: ${generate(num)}`})
+  } catch (error) {
+      return res.status(400).json({msg:'Server error'})
+
+  }
+}
