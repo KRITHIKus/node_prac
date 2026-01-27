@@ -1,5 +1,5 @@
 import express from "express"
-import { ById, createUser,deleteUser,getusers,  PrimeNUM, read, updateUser} from "../controllers/UserController.js"
+import { ById, createUser,deleteUser,downl,getusers,  PrimeNUM, read, updateUser} from "../controllers/UserController.js"
 import { findUserByID } from "../middleware/FindID.js"
 import { login, signup,logout, passwordUpdate } from "../controllers/UserCredentials.js"
 import { userValidation,validateReq } from "../validator_middleware/Schema_validators.js"
@@ -12,11 +12,13 @@ const Router=express.Router()
 Router.get('/read',readFile,read)
 Router.post('/write',writefile)
 
+
 //public route
 Router.post('/login',login)
-Router.post('/',validateReq,userValidation,signup,)
+Router.post('/',userValidation,validateReq,signup,)
 Router.post('/logout',isAuthenticated,logout)
 Router.post('/prime',PrimeNUM)
+Router.get('/down',downl)
 //protected routes
 
 Router.use(isAuthenticated)
