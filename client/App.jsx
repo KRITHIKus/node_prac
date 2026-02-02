@@ -7,7 +7,7 @@ import Dashboard from "./src/pages/Dashboard"
 import ErrorPage from "./src/components/error"
 import Userpage from "./src/pages/home"
 import Test from "./src/pages/test"
-
+import FileHandle from "./src/pages/fileH"
 
 export default function App(){
 
@@ -24,6 +24,7 @@ export default function App(){
         <Route path="/dash" element={<Dashboard/>}></Route>
         <Route path='/error' element={<ErrorPage/>}></Route>
         <Route path="/task" element={<Test/>}></Route>
+        <Route path="/file" element={<FileHandle/>}></Route>
       </Routes>
     </Router>
   )

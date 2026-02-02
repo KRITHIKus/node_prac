@@ -28,8 +28,4 @@ import multer from "multer";
 const upload=multer({dest:"uploads/"})
 
 export const uploadMiddleware = upload.single('file');
-export const uploadHandler=async(req,res)=>{
-    upload.single('file')
-    console.log("file recived:",req.file)
-    res.status(201).json({msg:"file upload sucessfull"})
-}
+

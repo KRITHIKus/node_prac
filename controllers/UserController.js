@@ -144,3 +144,14 @@ res.download(filepath,"n1.rxt",(err)=>{
 
 }
 }
+export const uploadHandler=async(req,res)=>{
+   try {
+    console.log("file recived:",req.file)
+    if (!req.file) {
+      return res.status(400).json({ msg: "No file uploaded" });
+    }
+    res.status(201).json({msg:"file upload sucessfull",})
+   } catch (error) {
+    res.status(500).json({ msg: "Upload failed" });
+   }
+}
