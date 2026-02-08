@@ -44,28 +44,54 @@ export const ById = async (req, res) => {
   res.json(req.user);
 };
 
-export const updateUser = async (req, res) => {
-  try {
-    const { name, password, role, email } = req.body;
+// export const updateUser = async (req, res) => {
+//   try {
+//     const { name, password, role, email } = req.body;
 
-    if (!name || !email) {
-      return res
-        .status(400)
-        .json({
-          msg: "Name and password ,role,email are required for full update",
-        });
-    }
-    const updateUser = await User.findByIdAndUpdate(
-      req.params.id,
-      { name, password, role, email },
-      { new: true, runValidators: true },
-    );
-    if (!updateUser) return res.status(404).json({ msg: "User not found" });
-    res.json(updateUser);
-  } catch (error) {
-    res.status(500).json({ msg: error.message });
+//     if (!name || !email) {
+//       return res
+//         .status(400)
+//         .json({
+//           msg: "Name and password ,role,email are required for full update",
+//         });
+//     }
+//     const updateUser = await User.findByIdAndUpdate(
+//       req.params.id,
+//       { name, password, role, email },
+//       { new: true, runValidators: true },
+//     );
+//     if (!updateUser) return res.status(404).json({ msg: "User not found" });
+//     res.json(updateUser);
+//   } catch (error) {
+//     res.status(500).json({ msg: error.message });
+//   }
+// };
+
+
+
+
+export const updateUser= async(req,res)=>{
+ try {
+   const {name,email}=req.body
+
+  if(!email || !name){
+    return res.status(400).json({msg:"name and password is required"})
   }
-};
+  const updateUser= await User.findByIdAndUpdate(
+    req.params.id,
+    {name,email},
+    {runValidators:true,new:true}
+  )
+  if(!updateUser){
+    return res.status(404).json({msg:"user not found"})
+  }
+  res.status(200).json({msg:"user updated sucessfully"})
+ } catch (error) {
+  return res.status(500).json({msg:"server side server"})
+ }
+}
+
+
 
 export const deleteUser = async (req, res) => {
   try {
@@ -130,19 +156,32 @@ export const PrimeNUM = async (req, res) => {
   }
 };
 
-export const downl= async(req,res)=>{
-try {
-  const filepath=path.join(__dirname,"../n1.txt")
+// export const downl= async(req,res)=>{
+// try {
+//   const filepath=path.join(__dirname,"../n1.txt")
 
-res.download(filepath,"n1.rxt",(err)=>{
-  if(err){
-    return res.status(500).json({msg:"error in downloading file",error:err})
+// res.download(filepath,"n1.rxt",(err)=>{
+//   if(err){
+//     return res.status(500).json({msg:"error in downloading file",error:err})
+//   }
+// })
+// } catch (error) {
+//       res.status(500).send("Something went wrong");
+
+// }
+// }
+
+export const downl = async(req,res)=>{
+  try {
+    const filepath= path.join(__dirname,"../n1.txt")
+    res.download(filepath,"n1.txt",(err)=>{
+      if(err){
+        res.status(400).json({msg:"error in downloading file",err})
+      }
+    })
+  } catch (error) {
+      return res.status(500).json({msg:"server side server"})
   }
-})
-} catch (error) {
-      res.status(500).send("Something went wrong");
-
-}
 }
 export const uploadHandler=async(req,res)=>{
    try {

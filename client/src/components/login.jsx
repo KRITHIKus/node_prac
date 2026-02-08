@@ -2,8 +2,14 @@ import axios from "axios"
 import { Link, useNavigate } from "react-router-dom"
 import { useState } from "react"
 import Userpage from "../pages/home"
+import { setusers } from "../redux/slice"
+import { useDispatch } from "react-redux"
+
+
+
 const Login=()=> {
   const [email,setemail]=useState("")
+  const dispatch=useDispatch()
   const [password,setpassword]=useState("")
   const [error,seterror]=useState("")
  const navigate = useNavigate()
@@ -14,7 +20,7 @@ const Login=()=> {
       const response =await axios.post("http://localhost:5000/api/users/login",{email,password},{withCredentials:true})
       alert("login successfull") 
       const {userDetails}= response.data
-      localStorage.setItem("user",JSON.stringify(userDetails))
+     dispatch(setusers(userDetails))
       if(userDetails.role==="admin"){
         navigate("/dash")
       }else{

@@ -8,6 +8,7 @@ import ErrorPage from "./src/components/error"
 import Userpage from "./src/pages/home"
 import Test from "./src/pages/test"
 import FileHandle from "./src/pages/fileH"
+import Search from "./src/pages/search"
 
 export default function App(){
 
@@ -25,6 +26,7 @@ export default function App(){
         <Route path='/error' element={<ErrorPage/>}></Route>
         <Route path="/task" element={<Test/>}></Route>
         <Route path="/file" element={<FileHandle/>}></Route>
+        <Route path="/search" element={<Search/>}></Route>
       </Routes>
     </Router>
   )

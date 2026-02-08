@@ -48,7 +48,7 @@ const handleSubmit=async(e)=>{
     alert("User Created successfully")
     navigate("/login") 
   } catch (err) {
-   seterror(err.response.data.msg || "somethig went wrong") 
+   seterror(err.response.data.error[0].msg || "somethig went wrong") 
   }
 }
 

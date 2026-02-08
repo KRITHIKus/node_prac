@@ -1,10 +1,15 @@
 import React, { useState } from 'react'
 import useLogout from '../components/logout'
 import usePasschange from '../components/passchange'
+import { setusers } from '../redux/slice'
+import { useSelector } from 'react-redux'
+
+
 
 export default  function Userpage() {
-const userInfo=JSON.parse(localStorage.getItem("user"))
-const userCookie= document.cookie
+//const userInfo=JSON.parse(localStorage.getItem("user"))
+const userInfo=useSelector((state)=>state.user.user)
+
   const logout=useLogout()
 
   const {passwordUpdate,err}=usePasschange()
