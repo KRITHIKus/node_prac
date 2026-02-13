@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux'
 
 export default  function Userpage() {
 //const userInfo=JSON.parse(localStorage.getItem("user"))
-const userInfo=useSelector((state)=>state.user.user)
+const userInfo=useSelector((state)=>state.user.currentuser)
 
   const logout=useLogout()
 
@@ -19,7 +19,8 @@ const [newPassword,setnewPassword]=useState("")
  const [error, setError] = useState("")
 
  const handleUpdatePassword=async()=>{
-  const id = userInfo._id
+  try {
+      const id = userInfo._id
   const res = await passwordUpdate(id,password,newPassword)
    if (res) {
             alert("Password updated successfully")
@@ -31,6 +32,10 @@ const [newPassword,setnewPassword]=useState("")
            setpassword("")
             setnewPassword("")
         }
+  } catch (error) {
+    console.log(error)
+  }
+
  }
   return (
     <>

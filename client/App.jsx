@@ -26,7 +26,7 @@ export default function App(){
         <Route path='/error' element={<ErrorPage/>}></Route>
         <Route path="/task" element={<Test/>}></Route>
         <Route path="/file" element={<FileHandle/>}></Route>
-        <Route path="/search" element={<Search/>}></Route>
+        <Route path="/search" element={<Search/> }></Route>
       </Routes>
     </Router>
   )

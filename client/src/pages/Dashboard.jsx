@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
   import useLogout from "../components/logout";
+  import { setusers } from "../redux/slice";
+  import {useDispatch} from 'react-redux'
+  import { useSelector } from "react-redux";
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -9,16 +12,15 @@ const AdminDashboard = () => {
   const [edit, setedit] = useState(null);
   const [updatedata, setupdatedata] = useState({});
   const [currentuser, setcurrentuser] = useState(null);
+  const user=useSelector(state=>state.user.currentuser)
   const logout = useLogout();
   const navigate = useNavigate();
-
+const dispatch=useDispatch()
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const user = JSON.parse(localStorage.getItem("user"));
-
         if (user?.role !== "admin") {
-          navigate("/user-dashboard");
+          navigate("/userPage");
         }
         setcurrentuser(user);
 
@@ -108,6 +110,10 @@ const editCurrentUser=()=>{
         {withCredentials:true}
       )
       if(response.status===200){
+         dispatch(setusers({
+    ...user,
+    ...updatedata
+  }))
         setcurrentuser((prev)=>({...prev,...updatedata}))
         alert("done")
         setedit(null)
