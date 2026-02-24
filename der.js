@@ -25,16 +25,34 @@ import multer from "multer";
 // console.log("\n finished reading")
 // })
 
+const allowedTypes= /jpg|jpeg|png|pdf/;
+
+
 const storage= multer.diskStorage({
     destination:(req,file,cb)=>{
-        cb(null,"uploads/")
-    },
-    filename:(req,file,cb)=>{
-        cb(null,Date.now()+"-"+file.originalname)
-    },
+cb(null,'uploads/')
+},
+filename:(req,file,cb)=>{
+    cb(null,`${Date.now()}-${file.originalname}`);
+},
 })
 
-const upload=multer({storage})
+const fileFilter=(req,file,cb)=>{
+    const mimeType= file.mimetype;
 
-export const uploadMiddleware = upload.single('file');
+    if(allowedTypes.test(mimeType)){
+        cb(null,true)
+    }else{
+        cb(new Error("invalid file type .jpg, .jpeg, .png, .pdf are allowed."),false)
+    }
+}
+const upload= multer({
+    storage,
+    fileFilter,
+    limits:{
+        fileSize:5*1024*1024
+    }
+})
 
+
+export const uploadMiddleware= upload.single('file')

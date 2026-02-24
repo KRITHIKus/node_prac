@@ -1,10 +1,12 @@
 import express from "express"
-import { ById, createUser,deleteUser,downl,getusers,  PrimeNUM, read, updateUser} from "../controllers/UserController.js"
+import { ById, createUser,deleteUser,downl,getusers,  PrimeNUM, read, updateUser, uploadHandler} from "../controllers/UserController.js"
 import { findUserByID } from "../middleware/FindID.js"
 import { login, signup,logout, passwordUpdate } from "../controllers/UserCredentials.js"
 import { userValidation,validateReq } from "../validator_middleware/Schema_validators.js"
 import { isAuthenticated } from "../middleware/authMiddleware.js"
 import {readFile, writefile } from "../middleware/simple.js"
+import { uploadMiddleware } from "../der.js"
+import { pageNated } from "../controllers/UserDb.js"
 
 const Router=express.Router()
 
@@ -14,11 +16,14 @@ Router.post('/write',writefile)
 
 
 //public route
+Router.get('/pageN',pageNated);
 Router.post('/login',login)
 Router.post('/',userValidation,validateReq,signup,)
 Router.post('/logout',isAuthenticated,logout)
 Router.post('/prime',PrimeNUM)
 Router.get('/down',downl)
+Router.post('/upload',uploadMiddleware,uploadHandler)
+
 //protected routes
 
 Router.use(isAuthenticated)
