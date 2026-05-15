@@ -1,4 +1,3 @@
-import { use } from "react";
 import User from "../db/UserModel.js";
 import {fileURLToPath} from "url"
 import path from "path";

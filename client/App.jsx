@@ -9,6 +9,9 @@ import Userpage from "./src/pages/home"
 import Test from "./src/pages/test"
 import FileHandle from "./src/pages/fileH"
 import Search from "./src/pages/search"
+import Test2 from "./src/pages/Test2"
+import TodoPage from "./src/pages/TodoPage"
+import AsyncTask from "./src/pages/asyncTask"
 
 export default function App(){
 
@@ -18,6 +21,7 @@ export default function App(){
         <Route path="/" element={<div>home 
           <Link className="btn btn-primary" to="/signup">signup</Link>
           <Link className="btn btn-warning" to="/login">login</Link>
+          
         </div>}></Route>
         <Route path="/userPage" element={<Userpage/>}></Route>
         <Route path="/signup" element={<Signup/>}></Route>
@@ -27,6 +31,10 @@ export default function App(){
         <Route path="/task" element={<Test/>}></Route>
         <Route path="/file" element={<FileHandle/>}></Route>
         <Route path="/search" element={<Search/> }></Route>
+        <Route path="/user" element={<Test2/>}></Route>
+        <Route path="/todo" element={<TodoPage/>}></Route>
+        <Route path="/users" element={<AsyncTask/>}></Route>
+        <Route></Route>
       </Routes>
     </Router>
   )

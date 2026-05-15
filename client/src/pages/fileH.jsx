@@ -42,7 +42,7 @@ function fileHandle() {
 seterr("Upload failed");
     }
   };
-
+console.log(window)
   return (
     <>
       <h1>File download</h1>

@@ -7,7 +7,7 @@ function useDebounce(text,delay){
     useEffect(()=>{
         const handler=setTimeout(()=>{
             setdebval(text)
-        },delay);
+        },delay); 
         return ()=>{
             clearTimeout(handler);
         };
@@ -26,8 +26,11 @@ useEffect(()=>{
     if(!debText)return;
    async function getDatas() {
     try {
-         let res=await axios.get(`http://localhost:5000/api/users?filter=name&&value=${debText}`,{withCredentials:true})
-         setdata(res.data)
+//  let res=await axios.get(`http://localhost:5000/api/users?filter=name&&value=${debText}`,{withCredentials:true})
+ let res=await axios.get(`https://dummyjson.com/users/search?q=${debText}`)
+
+        setdata(res.data.users) 
+        
     } catch (error) {
         seterror(error.message)
     }
@@ -54,14 +57,9 @@ return(<>
         {data.map((user)=>(
             <tr key={user._id}>
                 <td>
-                    {user.name}
+                    {user.firstName}
                 </td>
-                <td>
-                    {user.email}
-                </td>
-                <td>
-                    {user.role}
-                </td>
+               
             </tr>
         ))}
     </tbody>
